@@ -19,12 +19,14 @@ class WooCommerceApi
      */
     protected $headers = [];
 
+    protected $options;
+
     /**
      * Build Woocommerce connection.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Options $options)
     {
         try {
             $this->headers = [
@@ -32,10 +34,12 @@ class WooCommerceApi
                 'header_total_pages' => config('woocommerce.header_total_pages') ?? 'X-WP-TotalPages',
             ];
 
+            $this->setOptions($options);
+
             $this->client = new Client(
-                config('woocommerce.store_url'),
-                config('woocommerce.consumer_key'),
-                config('woocommerce.consumer_secret'),
+                $this->getOptions()->getStoreURL(),
+                $this->getOptions()->getConsumerKey(),
+                $this->getOptions()->getConsumerSecret(),
                 [
                     'version'           => 'wc/'.config('woocommerce.api_version'),
                     'wp_api'            => config('woocommerce.wp_api_integration'),
@@ -47,5 +51,19 @@ class WooCommerceApi
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);
         }
+    }
+
+    public function setOptions(Options $options)
+    {
+        $this->options = $options;
+
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getOptions(): Options
+    {
+        return $this->options;
     }
 }
