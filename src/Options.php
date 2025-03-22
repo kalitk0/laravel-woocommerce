@@ -17,9 +17,9 @@ namespace Codexshaper\WooCommerce;
 
 class Options
 {
-    protected $store_url;
-    protected $consumer_key;
-    protected $consumer_secret;
+    protected $storeUrl;
+    protected $consumerKey;
+    protected $consumerSecret;
 
     public function setStoreURL(string $storeUrl): self
     {
