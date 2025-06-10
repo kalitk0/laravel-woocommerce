@@ -16,8 +16,6 @@ trait WooCommerceTrait
     public function all($endpoint = '', $options = [])
     {
         try {
-            self::__construct();
-
             return $this->client->get($endpoint, $options);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);
@@ -35,13 +33,11 @@ trait WooCommerceTrait
      */
     public function find($endpoint = '', $options = [])
     {
-        try {
-            self::__construct();
-
+        //try {
             return $this->client->get($endpoint, $options);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), 1);
-        }
+        //} catch (\Exception $e) {
+       //     throw new \Exception($e->getMessage(), 1);
+        //}
     }
 
     /**
@@ -56,8 +52,6 @@ trait WooCommerceTrait
     public function create($endpoint, $data)
     {
         try {
-            self::__construct();
-
             return $this->client->post($endpoint, $data);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);
@@ -76,8 +70,6 @@ trait WooCommerceTrait
     public function update($endpoint, $data)
     {
         try {
-            self::__construct();
-
             return $this->client->put($endpoint, $data);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);
@@ -96,13 +88,23 @@ trait WooCommerceTrait
     public function delete($endpoint, $options = [])
     {
         try {
-            self::__construct();
-
             return $this->client->delete($endpoint, $options);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);
         }
     }
+    
+    public function batch($endpoint, $data)
+    {
+        try {
+            return $this->client->post($endpoint, $data);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 1);
+        }
+    }
+    
+    
+   
 
     /**
      * Return the last request header.
